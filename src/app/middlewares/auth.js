@@ -1,4 +1,4 @@
-const jwt = require('jasonwebtoken')
+const jwt = require('jsonwebtoken')
 const authConfig = require('../../config/auth')
 const {
     promisify
@@ -13,14 +13,13 @@ module.exports = async (req, res, next) => {
         })
     }
 
-
-
     const [, token] = authHeader.split(' ')
 
     try {
         const decoded = await promisify(jwt.verify)(token, authConfig.secret)
 
-        req.userId = decoded.userId
+        req.userId = decoded.id
+
         return next()
     } catch (err) {
         return res.status(401).json({
