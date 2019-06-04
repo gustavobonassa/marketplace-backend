@@ -13,10 +13,15 @@ class PurchaseController {
         const user = await User.findById(req.userId)
 
         await Mail.sendMail({
-            from: '"Gustavo" <gustavo.bonassa1@gmail.com>',
+            from: '"Gustavo Bonassa" <gustavo.bonassa1@gmail.com>',
             to: purchaseAd.author.email,
             subject: `Solicitação de compra: ${purchaseAd.title}`,
-            html: `teste ${content}`
+            template: 'purchase',
+            context: {
+                user,
+                content,
+                ad: purchaseAd
+            }
         })
 
         return res.send()
