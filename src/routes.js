@@ -1,5 +1,5 @@
 const express = require('express');
-const validade = require('express-validation');
+const validate = require('express-validation');
 
 const routes = express.Router();
 
